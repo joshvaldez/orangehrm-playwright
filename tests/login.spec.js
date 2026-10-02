@@ -33,4 +33,17 @@ test.describe('OrangeHRM Login', () => {
         await loginPage.verifyInvalidCredentialsMessageVisible();
     });
 
+    test('should show error with invalid username', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+
+        await loginPage.navigate();
+
+        await loginPage.login(
+            'wrongusername',
+            users.validUser.password
+        );
+
+        await loginPage.verifyInvalidCredentialsMessageVisible();
+    });
+
 });
