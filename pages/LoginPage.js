@@ -11,6 +11,8 @@ class LoginPage {
         this.loginButton = page.getByRole('button', {
             name: 'Login'
         });
+
+        this.invalidCredentialsMessage = page.getByText('Invalid credentials');
     }
 
     async navigate() {
@@ -23,6 +25,12 @@ class LoginPage {
         await this.usernameInput.fill(username);
         await this.passwordInput.fill(password);
         await this.loginButton.click();
+    }
+
+    async verifyInvalidCredentialsMessageVisible() {
+        await this.invalidCredentialsMessage.waitFor({
+            state: 'visible'
+        });
     }
 }
 
