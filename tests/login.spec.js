@@ -46,4 +46,37 @@ test.describe('OrangeHRM Login', () => {
         await loginPage.verifyInvalidCredentialsMessageVisible();
     });
 
+    test('should show required validation when username is empty', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+
+        await loginPage.navigate();
+        await loginPage.login(
+            '',
+            users.validUser.password
+        );
+        await loginPage.verifyUsernameRequiredMessage();
+    });
+
+    test('should show required validation when password is empty', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+
+        await loginPage.navigate();
+        await loginPage.login(
+            users.validUser.username,
+            ''
+        );
+        await loginPage.verifyPasswordRequiredMessage();
+    });
+    test('should show required validation when username andpassword is empty', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+
+        await loginPage.navigate();
+        await loginPage.login(
+            '',
+            ''
+        );
+        await loginPage.verifyUsernameRequiredMessage();
+        await loginPage.verifyPasswordRequiredMessage();
+    });
+
 });

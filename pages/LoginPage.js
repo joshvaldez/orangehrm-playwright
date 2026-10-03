@@ -13,6 +13,8 @@ class LoginPage {
         });
 
         this.invalidCredentialsMessage = page.getByText('Invalid credentials');
+        this.usernameRequiredMessage = page.getByText('Required').first();
+        this.passwordRequiredMessage = page.getByText('Required').last();
     }
 
     async navigate() {
@@ -29,6 +31,18 @@ class LoginPage {
 
     async verifyInvalidCredentialsMessageVisible() {
         await this.invalidCredentialsMessage.waitFor({
+            state: 'visible'
+        });
+    }
+
+    async verifyUsernameRequiredMessage() {
+        await this.usernameRequiredMessage.waitFor({
+            state: 'visible'
+        });
+    }
+
+    async verifyPasswordRequiredMessage() {
+        await this.passwordRequiredMessage.waitFor({
             state: 'visible'
         });
     }
