@@ -1,15 +1,10 @@
-const { test } = require('@playwright/test');
+const { test } = require('../../fixtures/test');
 
-const { LoginPage } = require('../../pages/LoginPage');
-const { DashboardPage } = require('../../pages/DashboardPage');
 const { users } = require('../../test-data/users');
 
 test.describe('Login Test Suite', () => {
 
-    test('should login successfully with valid credentials', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-        const dashboardPage = new DashboardPage(page);
-
+    test('should login successfully with valid credentials', async ({ loginPage, dashboardPage }) => {
         await loginPage.navigate();
 
         await loginPage.login(
@@ -20,9 +15,7 @@ test.describe('Login Test Suite', () => {
         await dashboardPage.verifyDashboardDisplayed();
     });
 
-    test('should display invalid credentials for invalid password', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-
+    test('should display invalid credentials for invalid password', async ({ loginPage }) => {
         await loginPage.navigate();
 
         await loginPage.login(
@@ -33,9 +26,7 @@ test.describe('Login Test Suite', () => {
         await loginPage.verifyInvalidCredentialsMessageVisible();
     });
 
-    test('should display invalid credentials for invalid username', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-
+    test('should display invalid credentials for invalid username', async ({ loginPage }) => {
         await loginPage.navigate();
 
         await loginPage.login(
@@ -46,10 +37,9 @@ test.describe('Login Test Suite', () => {
         await loginPage.verifyInvalidCredentialsMessageVisible();
     });
 
-    test('should display required message when username is empty', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-
+    test('should display required message when username is empty', async ({ loginPage }) => {
         await loginPage.navigate();
+        
         await loginPage.login(
             '',
             users.validUser.password
@@ -57,20 +47,18 @@ test.describe('Login Test Suite', () => {
         await loginPage.verifyUsernameRequiredMessage();
     });
 
-    test('should display required message when password is empty', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-
+    test('should display required message when password is empty', async ({ loginPage }) => {
         await loginPage.navigate();
+
         await loginPage.login(
             users.validUser.username,
             ''
         );
         await loginPage.verifyPasswordRequiredMessage();
     });
-    test('should display required messages when username and password are empty', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-
+    test('should display required messages when username and password are empty', async ({ loginPage }) => {
         await loginPage.navigate();
+
         await loginPage.login(
             '',
             ''
