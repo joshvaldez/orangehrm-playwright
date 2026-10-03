@@ -1,10 +1,10 @@
 const { test } = require('@playwright/test');
 
-const { LoginPage } = require('../pages/LoginPage');
-const { DashboardPage } = require('../pages/DashboardPage');
-const { users } = require('../test-data/users');
+const { LoginPage } = require('../../pages/LoginPage');
+const { DashboardPage } = require('../../pages/DashboardPage');
+const { users } = require('../../test-data/users');
 
-test.describe('OrangeHRM Login', () => {
+test.describe('Login Test Suite', () => {
 
     test('should login successfully with valid credentials', async ({ page }) => {
         const loginPage = new LoginPage(page);
@@ -20,7 +20,7 @@ test.describe('OrangeHRM Login', () => {
         await dashboardPage.verifyDashboardDisplayed();
     });
 
-    test('should show error with invalid password', async ({ page }) => {
+    test('should display invalid credentials for invalid password', async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate();
@@ -33,7 +33,7 @@ test.describe('OrangeHRM Login', () => {
         await loginPage.verifyInvalidCredentialsMessageVisible();
     });
 
-    test('should show error with invalid username', async ({ page }) => {
+    test('should display invalid credentials for invalid username', async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate();
@@ -46,7 +46,7 @@ test.describe('OrangeHRM Login', () => {
         await loginPage.verifyInvalidCredentialsMessageVisible();
     });
 
-    test('should show required validation when username is empty', async ({ page }) => {
+    test('should display required message when username is empty', async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate();
@@ -57,7 +57,7 @@ test.describe('OrangeHRM Login', () => {
         await loginPage.verifyUsernameRequiredMessage();
     });
 
-    test('should show required validation when password is empty', async ({ page }) => {
+    test('should display required message when password is empty', async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate();
@@ -67,7 +67,7 @@ test.describe('OrangeHRM Login', () => {
         );
         await loginPage.verifyPasswordRequiredMessage();
     });
-    test('should show required validation when username andpassword is empty', async ({ page }) => {
+    test('should display required messages when username and password are empty', async ({ page }) => {
         const loginPage = new LoginPage(page);
 
         await loginPage.navigate();
